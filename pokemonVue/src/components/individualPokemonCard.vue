@@ -176,14 +176,14 @@
                       <div class="man">
                         <img
                           class="genderSvg"
-                          src="./assets/svg/Gender Female SVG Icon (1).svg"
+                          src="../assets/svg/Gender Female SVG Icon (1).svg"
                           alt=""
                         />
                       </div>
                       <div class="woman">
                         <img
                           class="genderSvg"
-                          src="./assets/svg/Gender Female SVG Icon.svg"
+                          src="../assets/svg/Gender Female SVG Icon.svg"
                           alt=""
                         />
                       </div>
