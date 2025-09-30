@@ -2,20 +2,28 @@
 defineProps({
   pokemon: Object,
 });
+
+const capitalizeFirstLetter = (name) => {
+  return name[0].toUpperCase() + name.slice(1);
+};
+
+const transformationId = (id) => {
+  return "#" + id.toString().padStart(4, 0);
+};
 </script>
 
 <template>
   <div class="pokemonCard">
     <img
       class="w-3xs min-h-24 bg-[#ede6e6] rounded-sm m-auto cursor-pointer"
-      src=""
+      src="../assets/img/default.jpg"
       alt="default images"
     />
     <div class="id">
-      <p>{{ pokemon.id }}</p>
+      <p>{{ transformationId(pokemon.id) }}</p>
     </div>
     <div class="name">
-      <h5>{{ pokemon.name }}</h5>
+      <h5>{{ capitalizeFirstLetter(pokemon.name) }}</h5>
     </div>
     <div class="types">
       <div class="typeItem">Grass</div>

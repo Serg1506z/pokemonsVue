@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import CardPokemon from "./components/CardPokemon.vue";
-import individualPokemonCard from "./components/individualPokemonCard.vue";
+// import personalPokemonCard from "./components/personalPokemonCard.vue";
 
 const POKEMON_API = "https://pokeapi.co/api/v2";
 const POKEMON_LIMIT = 12;
@@ -40,5 +40,5 @@ onMounted(async () => {
       <CardPokemon v-for="(pokemon, index) in pokemonsData" :key="index" :pokemon="pokemon" />
     </div>
   </div>
-  <individualPokemonCard />
+  <!-- <personalPokemonCard /> -->
 </template>
