@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import CardPokemon from "./components/CardPokemon.vue";
+import Btn from "./components/Btn.vue";
 // import personalPokemonCard from "./components/personalPokemonCard.vue";
 
 const POKEMON_API = "https://pokeapi.co/api/v2";
@@ -32,6 +33,10 @@ onMounted(async () => {
 
   console.log("pokemonsData", pokemonsData.value);
 });
+
+const handler = () => {
+  console.log("click2");
+};
 </script>
 
 <template>
@@ -40,5 +45,8 @@ onMounted(async () => {
       <CardPokemon v-for="(pokemon, index) in pokemonsData" :key="index" :pokemon="pokemon" />
     </div>
   </div>
+  <Btn title="Load more Pokémon" @click="handler" />
   <!-- <personalPokemonCard /> -->
 </template>
+
+//подгружать новых покумонов 

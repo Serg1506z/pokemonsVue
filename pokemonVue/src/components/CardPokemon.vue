@@ -1,4 +1,5 @@
 <script setup>
+import PokemonType from "./PokemonType.vue";
 defineProps({
   pokemon: Object,
 });
@@ -16,7 +17,7 @@ const transformationId = (id) => {
   <div class="pokemonCard">
     <img
       class="w-3xs min-h-24 bg-[#ede6e6] rounded-sm m-auto cursor-pointer"
-      src="../assets/img/default.jpg"
+      :src="pokemon.sprites.other['official-artwork'].front_default"
       alt="default images"
     />
     <div class="id">
@@ -26,8 +27,9 @@ const transformationId = (id) => {
       <h5>{{ capitalizeFirstLetter(pokemon.name) }}</h5>
     </div>
     <div class="types">
-      <div class="typeItem">Grass</div>
-      <div class="typeItem">Poison</div>
+      <!-- { slot: 1 type:{ name:"grass" url: "https://pokeapi.co/api/v2/type/12/" } } -->
+
+      <PokemonType :label="item.type.name" v-for="(item, index) in pokemon.types" :key="index" />
     </div>
   </div>
 </template>
@@ -77,17 +79,6 @@ const transformationId = (id) => {
 .types {
   display: flex;
   width: 220px;
-}
-
-.typeItem {
-  border: 1px solid;
-  padding: 5px;
-  width: 38.4375%;
-  font-size: 11px;
-  text-align: center;
-  border-radius: 3px;
-  margin: 0 1.5625% 0 0;
-  background-color: #9bcc50;
 }
 
 .btn {
