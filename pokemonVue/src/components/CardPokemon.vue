@@ -1,5 +1,6 @@
 <script setup>
 import PokemonType from "./PokemonType.vue";
+
 defineProps({
   pokemon: Object,
 });
@@ -14,29 +15,31 @@ const transformationId = (id) => {
 </script>
 
 <template>
-  <div class="pokemonCard">
-    <img
-      class="w-3xs min-h-24 bg-[#ede6e6] rounded-sm m-auto cursor-pointer"
-      :src="pokemon.sprites.other['official-artwork'].front_default"
-      alt="default images"
-    />
-    <div class="id">
-      <p>{{ transformationId(pokemon.id) }}</p>
-    </div>
-    <div class="name">
-      <h5>{{ capitalizeFirstLetter(pokemon.name) }}</h5>
-    </div>
-    <div class="types">
-      <!-- { slot: 1 type:{ name:"grass" url: "https://pokeapi.co/api/v2/type/12/" } } -->
+  <router-link to="/pokemon">
+    <div class="pokemonCard">
+      <img
+        class="w-3xs min-h-24 bg-[#ede6e6] rounded-sm m-auto cursor-pointer"
+        :src="pokemon.sprites.other['official-artwork'].front_default"
+        alt="default images"
+      />
+      <div class="id">
+        <p>{{ transformationId(pokemon.id) }}</p>
+      </div>
+      <div class="name">
+        <h5>{{ capitalizeFirstLetter(pokemon.name) }}</h5>
+      </div>
+      <div class="types">
+        <!-- { slot: 1 type:{ name:"grass" url: "https://pokeapi.co/api/v2/type/12/" } } -->
 
-      <PokemonType :label="item.type.name" v-for="(item, index) in pokemon.types" :key="index" />
+        <PokemonType :label="item.type.name" v-for="(item, index) in pokemon.types" :key="index" />
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
 .pokemonCard {
-  width: 250px;
+  min-width: 400px;
   padding: 15px 10px;
   display: flex;
   flex-direction: column;

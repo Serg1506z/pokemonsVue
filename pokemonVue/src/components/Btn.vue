@@ -1,5 +1,7 @@
 <script setup>
-const emit = defineEmits(["click"]);
+import { onMounted } from "vue";
+
+const emit = defineEmits(["click", "customMounted"]);
 
 defineProps({
   title: {
@@ -12,6 +14,14 @@ defineProps({
 const handler = () => {
   emit("click");
 };
+
+onMounted(() => {
+  setTimeout(() => {
+    emit("customMounted", {
+      id: 1,
+    });
+  }, 2000);
+});
 </script>
 
 <template>
@@ -21,6 +31,8 @@ const handler = () => {
 <style scoped>
 .btn {
   margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background-color: #30a7d7;
   color: #fff;
   border: none;
