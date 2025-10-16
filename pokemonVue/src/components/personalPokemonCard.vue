@@ -7,6 +7,7 @@ const countSpecificationsItem = 15;
 
 const router = useRouter();
 let pokemonData = ref({});
+console.log(pokemonData);
 
 const getPokemonById = async (id) => {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -24,7 +25,7 @@ const getPokemonById = async (id) => {
 //   }
 
 const myFunction = (column, index) => {
-  console.log(column);
+  // console.log(column);
   if (index > 5) {
     return true;
   } else {
@@ -58,32 +59,37 @@ onMounted(async () => {
         </div>
       </header>
       <div class="personalCardTitle">
-        <span class="titleName" id="personalCardPokemonName">pokemonname</span>
-        <span class="titleId" id="personalCardPokemonId">#0000</span>
+        <span class="titleName" id="personalCardPokemonName">{{ pokemonData.name }}</span>
+        <span class="titleId" id="personalCardPokemonId">{{ pokemonData.id }}</span>
       </div>
       <section class="pokemonDetails">
         <div class="leftColumn">
-          <img
+          <!-- <img
             class="image"
             id="personalCardPokemonImage"
-            src="../assets\img\default.jpg"
+            :src="pokemonData.sprites.other['official-artwork'].front_default"
             alt="Bulbasaur"
-          />
+          /> -->
           <div class="statistics">
             <h3 class="statisicsTitle">Статистика</h3>
 
-            <div
-              class="columnWrapper"
-              v-for="(column, columnIndex) in pokemonData.stats"
-              :key="columnIndex"
-            >
-              <div class="statItem">
-                <div
-                  v-for="(value, index) in new Array(countSpecificationsItem)"
-                  class="item"
-                  :class="{ fill: myFunction(column, index) }"
-                  :key="index"
-                ></div>
+            <div class="wrapperItems">
+              <div
+                class="columnWrapper"
+                v-for="(column, columnIndex) in pokemonData.stats"
+                :key="columnIndex"
+              >
+                <div class="statItem">
+                  <div
+                    v-for="(value, index) in new Array(countSpecificationsItem)"
+                    class="item"
+                    :class="{ fill: myFunction(column, index) }"
+                    :key="index"
+                  ></div>
+                  <p>
+                    {{ pokemonData.stats[columnIndex].stat.name }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -105,11 +111,11 @@ onMounted(async () => {
               <ul>
                 <li class="liItem">
                   <span class="liTitle">Высота</span>
-                  <span class="liParam" id="liParamHeight">2' 40"</span>
+                  <span class="liParam" id="liParamHeight">{{ pokemonData.height }}</span>
                 </li>
                 <li class="liItem">
                   <span class="liTitle">Масса</span>
-                  <span class="liParam" id="liParamWeight">15,2 фута</span>
+                  <span class="liParam" id="liParamWeight">{{ pokemonData.weight }} фута</span>
                 </li>
                 <li class="liItem">
                   <span class="liTitle">Пол</span>
@@ -592,12 +598,17 @@ ul {
 }
 
 .statItem .item {
-  width: 100px;
+  width: 52px;
   height: 6px;
-  background-color: grey;
+  background-color: white;
 }
 
 .statItem .item.fill {
   background-color: blue;
+}
+.wrapperItems {
+  display: flex;
+  width: 100%;
+  gap: 10px;
 }
 </style>
