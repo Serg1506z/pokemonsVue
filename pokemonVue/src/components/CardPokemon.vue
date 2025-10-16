@@ -39,7 +39,7 @@ const transformationId = (id) => {
 
 <style scoped>
 .pokemonCard {
-  min-width: 150px;
+  width: 240px;
   padding: 15px 10px;
   display: flex;
   flex-direction: column;

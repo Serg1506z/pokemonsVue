@@ -46,7 +46,7 @@ onMounted(async () => {
         <div class="back">
           <button class="btnBack">&#x25C4;</button>
           <div class="pokenomInfo">
-            <span class="pokemonInfoId">{{ pokemonData.id }}</span>
+            <span class="pokemonInfoId">{{ pokemonData.id - 1 }}</span>
             <span class="pokemonInfoName">Бульбазавр</span>
           </div>
         </div>
@@ -54,7 +54,7 @@ onMounted(async () => {
           <button class="btnForward">&#x25BA;</button>
           <div class="pokenomInfo">
             <span class="pokemonInfoName">Бульбазавр</span>
-            <span class="pokemonInfoId">#0001</span>
+            <span class="pokemonInfoId">{{ pokemonData.id + 1 }}</span>
           </div>
         </div>
       </header>
@@ -66,9 +66,8 @@ onMounted(async () => {
         <div class="leftColumn">
           <!-- <img
             class="image"
-            id="personalCardPokemonImage"
             :src="pokemonData.sprites.other['official-artwork'].front_default"
-            alt="Bulbasaur"
+            alt="default images"
           /> -->
           <div class="statistics">
             <h3 class="statisicsTitle">Статистика</h3>
@@ -335,7 +334,7 @@ onMounted(async () => {
 }
 
 .statistics {
-  width: 100%;
+  width: 405px;
   min-height: 250px;
   border-radius: 10px;
   background-color: #a4a4a4;
@@ -608,7 +607,7 @@ ul {
 }
 .wrapperItems {
   display: flex;
-  width: 100%;
+  width: 250px;
   gap: 10px;
 }
 </style>
