@@ -15,7 +15,7 @@ const transformationId = (id) => {
 </script>
 
 <template>
-  <router-link to="/pokemon">
+  <router-link :to="/pokemon/ + pokemon.id">
     <div class="pokemonCard">
       <img
         class="w-3xs min-h-24 bg-[#ede6e6] rounded-sm m-auto cursor-pointer"
@@ -39,7 +39,7 @@ const transformationId = (id) => {
 
 <style scoped>
 .pokemonCard {
-  min-width: 400px;
+  min-width: 150px;
   padding: 15px 10px;
   display: flex;
   flex-direction: column;

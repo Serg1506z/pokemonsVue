@@ -1,4 +1,42 @@
-<script setup></script>
+<script setup>
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import PokemonType from "./PokemonType.vue";
+
+const countSpecificationsItem = 15;
+
+const router = useRouter();
+let pokemonData = ref({});
+
+const getPokemonById = async (id) => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+  return await res.json();
+};
+
+//  function renderSpecificationsItems(data, index) {
+//     console.log(data, index);
+
+//     const a = (data.stats[index]["base_stat"] * 100) / 200;
+//     const b = Math.round((a / 100) * countSpecificationsItem);
+
+//     return b;
+//   }
+
+const myFunction = (column, index) => {
+  console.log(column);
+  if (index > 5) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+onMounted(async () => {
+  const pokemonId = router.currentRoute.value.params.id;
+  pokemonData.value = await getPokemonById(pokemonId);
+});
+</script>
 
 <template>
   <div class="personalCardPokemon">
@@ -7,7 +45,7 @@
         <div class="back">
           <button class="btnBack">&#x25C4;</button>
           <div class="pokenomInfo">
-            <span class="pokemonInfoId">#0001</span>
+            <span class="pokemonInfoId">{{ pokemonData.id }}</span>
             <span class="pokemonInfoName">Бульбазавр</span>
           </div>
         </div>
@@ -33,6 +71,21 @@
           />
           <div class="statistics">
             <h3 class="statisicsTitle">Статистика</h3>
+
+            <div
+              class="columnWrapper"
+              v-for="(column, columnIndex) in pokemonData.stats"
+              :key="columnIndex"
+            >
+              <div class="statItem">
+                <div
+                  v-for="(value, index) in new Array(countSpecificationsItem)"
+                  class="item"
+                  :class="{ fill: myFunction(column, index) }"
+                  :key="index"
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="rightColumn">
@@ -96,14 +149,13 @@
           </div>
           <div class="typesCard">
             <h3 class="typeTitle">Типы</h3>
-            <div class="personalType"></div>
-          </div>
-          <div class="weaknesses">
-            <h3 class="weaknessesTitle">Слабые стороны</h3>
-            <div class="itemWeaknesses">Огонь</div>
-            <div class="itemWeaknesses">Лед</div>
-            <div class="itemWeaknesses">Летающий</div>
-            <div class="itemWeaknesses">Психический</div>
+            <div class="types">
+              <PokemonType
+                :label="item.type.name"
+                v-for="(item, index) in pokemonData.types"
+                :key="index"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -202,6 +254,11 @@
 .pokenomInfo {
   display: flex;
   gap: 10px;
+}
+
+.types {
+  display: flex;
+  width: 220px;
 }
 
 .btnBack {
@@ -526,5 +583,21 @@ ul {
   margin-left: auto;
   padding: 15px 0;
   width: 250px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.statItem .item {
+  width: 100px;
+  height: 6px;
+  background-color: grey;
+}
+
+.statItem .item.fill {
+  background-color: blue;
 }
 </style>

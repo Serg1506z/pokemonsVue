@@ -11,7 +11,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/pokemon",
+      path: "/pokemon/:id",
       name: "pokemon",
       component: () => {
         return import("../components/personalPokemonCard.vue");

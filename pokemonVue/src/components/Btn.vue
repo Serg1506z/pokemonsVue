@@ -39,5 +39,6 @@ onMounted(() => {
   border-radius: 5px;
   padding: 0.75em 1.25em 0.675em;
   max-width: 300px;
+  cursor: pointer;
 }
 </style>
