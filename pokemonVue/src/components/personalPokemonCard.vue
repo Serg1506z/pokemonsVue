@@ -5,6 +5,8 @@ import PokemonType from "./PokemonType.vue";
 
 const countSpecificationsItem = 15;
 
+const isLoading = ref(true);
+
 const router = useRouter();
 let pokemonData = ref({});
 console.log(pokemonData);
@@ -15,18 +17,26 @@ const getPokemonById = async (id) => {
   return await res.json();
 };
 
-//  function renderSpecificationsItems(data, index) {
-//     console.log(data, index);
+function renderSpecificationsItems(data, index) {
+  console.log(data, index);
 
-//     const a = (data.stats[index]["base_stat"] * 100) / 200;
-//     const b = Math.round((a / 100) * countSpecificationsItem);
+  const a = (data["base_stat"] * 100) / 200;
+  const b = Math.round((a / 100) * countSpecificationsItem);
 
-//     return b;
-//   }
+  return b;
+}
 
-const myFunction = (column, index) => {
-  // console.log(column);
-  if (index > 5) {
+const capitalizeFirstLetter = (name = "pokemon") => {
+  return name[0].toUpperCase() + name.slice(1);
+};
+
+const transformationId = (id = 1) => {
+  return "#" + id.toString().padStart(4, 0);
+};
+
+const filler = (column, index) => {
+  // console.log(555, renderSpecificationsItems(column));
+  if (index >= countSpecificationsItem - renderSpecificationsItems(column)) {
     return true;
   } else {
     return false;
@@ -34,14 +44,22 @@ const myFunction = (column, index) => {
 };
 
 onMounted(async () => {
-  const pokemonId = router.currentRoute.value.params.id;
-  pokemonData.value = await getPokemonById(pokemonId);
+  try {
+    isLoading.value = true;
+    const pokemonId = router.currentRoute.value.params.id;
+    pokemonData.value = await getPokemonById(pokemonId);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    isLoading.value = false;
+  }
 });
 </script>
 
 <template>
   <div class="personalCardPokemon">
-    <div class="personalCardContainer">
+    <div v-if="isLoading">loading...</div>
+    <div v-else class="personalCardContainer">
       <header class="header">
         <div class="back">
           <button class="btnBack">&#x25C4;</button>
@@ -53,22 +71,26 @@ onMounted(async () => {
         <div class="forward">
           <button class="btnForward">&#x25BA;</button>
           <div class="pokenomInfo">
-            <span class="pokemonInfoName">Бульбазавр</span>
+            <span class="pokemonInfoName">{{ capitalizeFirstLetter(pokemonData.name) }}</span>
             <span class="pokemonInfoId">{{ pokemonData.id + 1 }}</span>
           </div>
         </div>
       </header>
       <div class="personalCardTitle">
-        <span class="titleName" id="personalCardPokemonName">{{ pokemonData.name }}</span>
-        <span class="titleId" id="personalCardPokemonId">{{ pokemonData.id }}</span>
+        <span class="titleName" id="personalCardPokemonName">{{
+          capitalizeFirstLetter(pokemonData.name)
+        }}</span>
+        <span class="titleId" id="personalCardPokemonId">{{
+          transformationId(pokemonData.id || 1)
+        }}</span>
       </div>
       <section class="pokemonDetails">
         <div class="leftColumn">
-          <!-- <img
+          <img
             class="image"
             :src="pokemonData.sprites.other['official-artwork'].front_default"
             alt="default images"
-          /> -->
+          />
           <div class="statistics">
             <h3 class="statisicsTitle">Статистика</h3>
 
@@ -82,7 +104,7 @@ onMounted(async () => {
                   <div
                     v-for="(value, index) in new Array(countSpecificationsItem)"
                     class="item"
-                    :class="{ fill: myFunction(column, index) }"
+                    :class="{ fill: filler(column, index) }"
                     :key="index"
                   ></div>
                   <p>
