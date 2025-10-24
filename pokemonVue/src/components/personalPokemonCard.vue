@@ -65,7 +65,7 @@ onMounted(async () => {
           <button class="btnBack">&#x25C4;</button>
           <div class="pokenomInfo">
             <span class="pokemonInfoId">{{ pokemonData.id - 1 }}</span>
-            <span class="pokemonInfoName">Бульбазавр</span>
+            <span class="pokemonInfoName">{{ capitalizeFirstLetter(pokemonData.name) }}</span>
           </div>
         </div>
         <div class="forward">
@@ -227,7 +227,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <button class="footerBtn">Узнайте больше о покемонах</button>
+      <router-link to="/"><button class="footerBtn">Explore More Pokémon</button></router-link>
     </div>
   </div>
 </template>
