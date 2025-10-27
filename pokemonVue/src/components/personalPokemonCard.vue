@@ -64,7 +64,7 @@ onMounted(async () => {
         <div class="back">
           <button class="btnBack">&#x25C4;</button>
           <div class="pokenomInfo">
-            <span class="pokemonInfoId">{{ pokemonData.id - 1 }}</span>
+            <span class="pokemonInfoId">{{ pokemonData.id }}</span>
             <span class="pokemonInfoName">{{ capitalizeFirstLetter(pokemonData.name) }}</span>
           </div>
         </div>
@@ -72,7 +72,7 @@ onMounted(async () => {
           <button class="btnForward">&#x25BA;</button>
           <div class="pokenomInfo">
             <span class="pokemonInfoName">{{ capitalizeFirstLetter(pokemonData.name) }}</span>
-            <span class="pokemonInfoId">{{ pokemonData.id + 1 }}</span>
+            <span class="pokemonInfoId">{{ pokemonData.id }}</span>
           </div>
         </div>
       </header>
