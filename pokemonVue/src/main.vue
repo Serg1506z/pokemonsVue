@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import CardPokemon from "./components/CardPokemon.vue";
-import Btn from "./components/Btn.vue";
+import HomeBtn from "./components/HomeBtn.vue";
 // import personalPokemonCard from "./components/personalPokemonCard.vue";
 
 const POKEMON_API = "https://pokeapi.co/api/v2";
@@ -57,7 +57,7 @@ const handler = () => {
         <CardPokemon v-for="(pokemon, index) in pokemonsData" :key="index" :pokemon="pokemon" />
       </div>
     </div>
-    <Btn title="Load more Pokémon" @click="handler" />
+    <HomeBtn title="Load more Pokémon" @click="handler" />
   </div>
 </template>
 
